@@ -68,7 +68,7 @@ jobs:
         cd $ANDROID_ROOT
         curl https://storage.googleapis.com/git-repo-downloads/repo-1 > ~/bin/repo
         chmod a+x ~/bin/repo
-        python ~/bin/repo init -u https://github.com/Halium/android.git -b halium-10.0 --depth=1
+        python3 ~/bin/repo init -u git://github.com/Halium/android.git -b halium-9.0
         repo sync
     
     - name: Clone device spec source
