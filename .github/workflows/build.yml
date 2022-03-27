@@ -69,7 +69,7 @@ jobs:
         curl https://storage.googleapis.com/git-repo-downloads/repo-1 > ~/bin/repo
         chmod a+x ~/bin/repo
         python3 ~/bin/repo init -u https://github.com/Halium/android -b halium-9.0 --depth=1
-        repo sync -j8 -c --no-clone-bundle --no-tags --optimized-fetch --prune
+        repo forall -vc "git reset --hard"
     
     - name: Clone device spec source
       run: |
