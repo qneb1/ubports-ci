@@ -40,7 +40,7 @@ jobs:
         libxml2 libxml2-utils lzop pngcrush rsync schedtool \
         squashfs-tools xsltproc yasm zip zlib1g-dev git \
         qemu-user-static qemu-system-arm e2fsprogs android-tools-fsutils gzip
-        sudo docker rmi `docker images -q`
+        
         sudo rm -rf \
           /usr/share/dotnet \
           /etc/mysql \
