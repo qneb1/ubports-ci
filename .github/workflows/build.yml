@@ -17,8 +17,6 @@ jobs:
 
   build:
     runs-on: self-hosted
-      env:
-       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
