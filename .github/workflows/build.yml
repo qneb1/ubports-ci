@@ -66,10 +66,8 @@ jobs:
         source halium.env
         mkdir -p $ANDROID_ROOT
         cd $ANDROID_ROOT
-        curl https://storage.googleapis.com/git-repo-downloads/repo-1 > ~/bin/repo
-        chmod a+x ~/bin/repo
-        python3 ~/bin/repo init -u git://github.com/Halium/android.git -b halium-9.0
-        repo sync
+        repo init -u https://github.com/Halium/android -b halium-9.0 --depth=1
+        repo sync -j8 -c --no-clone-bundle --no-tags --optimized-fetch --prune
     
     - name: Clone device spec source
       run: |
