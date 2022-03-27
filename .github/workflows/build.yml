@@ -9,9 +9,11 @@ name: Build Ubports
 
 on:
  workflow_dispatch:
- push:
+env:
+ ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  push:
     tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
 
