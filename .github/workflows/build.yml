@@ -64,6 +64,7 @@ jobs:
         libxml2 libxml2-utils lzop pngcrush rsync schedtool android-sdk-ext4-utils \
         squashfs-tools xsltproc yasm zip zlib1g-dev git android-sdk-libsparse-utils \
         qemu-user-static qemu-system-arm e2fsprogs gzip
+        sudo apt-get install -f
         sudo docker rmi `docker images -q`
         sudo rm -rf \
           /usr/share/dotnet \
