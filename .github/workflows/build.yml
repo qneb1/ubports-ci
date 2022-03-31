@@ -39,13 +39,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
     
-    - name: Initialization environment
+    - name: add repo and ...
       env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           
       run: | 
         sudo apt-get install software-properties-common
         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial universe'
+        sudo apt-get update
+        sudo wget http://archive.ubuntu.com/ubuntu/pool/universe/a/android-tools/android-tools-fsutils_5.1.1.r38-1.1_amd64.deb -o 123.deb
+        sudo chmod 775 123.deb
+        sudo dpkg --install 123.deb
         
     - name: Initialization environment
       env:
@@ -59,8 +63,8 @@ jobs:
         gcc-multilib gnupg gperf imagemagick lib32ncurses5-dev \
         lib32readline-dev lib32z1-dev libesd0-dev liblz4-tool \
         libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev \
-        libxml2 libxml2-utils lzop pngcrush rsync schedtool \
-        squashfs-tools xsltproc yasm zip zlib1g-dev git \
+        libxml2 libxml2-utils lzop pngcrush rsync schedtool android-sdk-ext4-util \
+        squashfs-tools xsltproc yasm zip zlib1g-dev git android-sdk-libsparse-utilss\
         qemu-user-static qemu-system-arm e2fsprogs android-tools-fsutils gzip
         sudo docker rmi `docker images -q`
         sudo rm -rf \
