@@ -44,7 +44,7 @@ jobs:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           
       run: | 
-        sudo apt-get install software-properties-common \
+        sudo apt-get install software-properties-common
         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial universe'
         
     - name: Initialization environment
