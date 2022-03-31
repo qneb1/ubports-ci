@@ -17,7 +17,7 @@ on:
 jobs:
 
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-18.04
     steps:
     
 #    - name: Determine free space before
@@ -26,45 +26,34 @@ jobs:
 #
 #    - name: Maximize build space
 #      uses: easimon/maximize-build-space@master
-#      with:
+#     with:
 #        root-reserve-mb: 512
 #        swap-size-mb: 1024
 #        remove-dotnet: 'true'
-      
-    - name: Determine free space after
-      run: |
-        echo "FREE_GIG_AFTER=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
+#      
+#    - name: Determine free space after
+#      run: |
+#        echo "FREE_GIG_AFTER=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
 
         
     - name: Checkout
       uses: actions/checkout@master
     
-#    - name: add repo and ...
-#      env:
-#          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-#          
-#      run: | 
-#        sudo apt-get install software-properties-common
-#        sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/dists/ xenial main universe multiverse restricted'
-#        sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/dists/ bionic main universe multiverse restricted'
-#        sudo apt-get update
-        
     - name: Initialization environment
       env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           
-#      run: |
-#        sudo apt-get update
-#        sudo apt-get install -y \
-#        openjdk-8-jdk android-tools-adb bc \
-#        bison build-essential curl flex g++-multilib \
-#        gcc-multilib gnupg gperf imagemagick lib32ncurses5-dev \
-#        lib32readline-dev lib32z1-dev liblz4-tool \
-#        libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev \
-#        libxml2 libxml2-utils lzop pngcrush rsync schedtool \
-#        squashfs-tools xsltproc yasm zip zlib1g-dev git \
-#        qemu-user-static qemu-system-arm e2fsprogs android-tools-fsutils gzip
-      run:
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+        openjdk-8-jdk android-tools-adb bc \
+        bison build-essential curl flex g++-multilib \
+        gcc-multilib gnupg gperf imagemagick lib32ncurses5-dev \
+        lib32readline-dev lib32z1-dev liblz4-tool \
+        libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev \
+        libxml2 libxml2-utils lzop pngcrush rsync schedtool \
+        squashfs-tools xsltproc yasm zip zlib1g-dev git \
+        qemu-user-static qemu-system-arm e2fsprogs android-tools-fsutils gzip
         sudo docker rmi `docker images -q`
         sudo rm -rf \
           /usr/share/dotnet \
