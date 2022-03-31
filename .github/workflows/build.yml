@@ -24,17 +24,17 @@ jobs:
 #      run: |
 #        echo "FREE_GIG_BEFORE=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
 #
-    - name: Maximize build space
-      uses: easimon/maximize-build-space@master
-      with:
-        root-reserve-mb: 2048
-        swap-size-mb: 5120
-        remove-dotnet: 'true'
-        
-      
-    - name: Determine free space after
-      run: |
-        echo "FREE_GIG_AFTER=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
+#    - name: Maximize build space
+#      uses: easimon/maximize-build-space@master
+#      with:
+#        root-reserve-mb: 2048
+#        swap-size-mb: 5120
+#        remove-dotnet: 'true'
+#        
+#      
+#    - name: Determine free space after
+#      run: |
+#        echo "FREE_GIG_AFTER=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
 
         
     - name: Checkout
@@ -90,17 +90,17 @@ jobs:
         rm -rf $ANDROID_ROOT/hybris/hybris-boot
         git clone https://github.com/sailfish-on-davinci/hybris-boot.git $ANDROID_ROOT/hybris/hybris-boot
         
-    - name: Build HAL
-      run: |
-        chmod +x build-hal.sh
-        bash -x build-hal.sh
-      shell: bash
-
-    - name: Build Package
-      run: |
-        chmod +x package.sh
-        bash -x package.sh
-      shell: bash
+#    - name: Build HAL
+#      run: |
+#        chmod +x build-hal.sh
+#        bash -x build-hal.sh
+#      shell: bash
+#
+#    - name: Build Package
+#      run: |
+#        chmod +x package.sh
+#        bash -x package.sh
+#      shell: bash
 
 
     - name: Create Release
