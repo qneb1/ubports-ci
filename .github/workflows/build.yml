@@ -17,19 +17,19 @@ on:
 jobs:
 
   build:
-    runs-on: ubuntu-18.04
+    runs-on: self-hosted
     steps:
     
-    - name: Determine free space before
-      run: |
-        echo "FREE_GIG_BEFORE=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
-
-    - name: Maximize build space
-      uses: easimon/maximize-build-space@master
-      with:
-        root-reserve-mb: 512
-        swap-size-mb: 1024
-        remove-dotnet: 'true'
+#    - name: Determine free space before
+#      run: |
+#        echo "FREE_GIG_BEFORE=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
+#
+#    - name: Maximize build space
+#      uses: easimon/maximize-build-space@master
+#      with:
+#        root-reserve-mb: 512
+#        swap-size-mb: 1024
+#        remove-dotnet: 'true'
       
     - name: Determine free space after
       run: |
