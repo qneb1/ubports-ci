@@ -30,6 +30,9 @@ jobs:
       uses: actions/checkout@master
     
     - name: Initialization environment
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+          
       run: |
         sudo apt-get update
         sudo apt-get install -y \
@@ -92,6 +95,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         GITHUB_TOKEN: ${{ secrets.Asd_a }}
       with:
         tag_name: ${{ github.ref }}
@@ -103,6 +107,7 @@ jobs:
       id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         GITHUB_TOKEN: ${{ secrets.Asd_a }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
