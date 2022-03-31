@@ -54,8 +54,8 @@ jobs:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           
       run: |
-        sudo apt-get update
-        sudo apt-get install -y \
+        sudo apt-get update --fix-missing
+        sudo apt-get install -f -y \
         openjdk-8-jdk android-tools-adb bc \
         bison build-essential libwxbase3.0-dev curl flex g++-multilib \
         gcc-multilib gnupg gperf imagemagick libesd0 wx3.0-headers lib32ncurses5-dev \
@@ -64,7 +64,6 @@ jobs:
         libxml2 libxml2-utils lzop pngcrush rsync schedtool android-sdk-ext4-utils \
         squashfs-tools xsltproc yasm zip zlib1g-dev git android-sdk-libsparse-utils \
         qemu-user-static qemu-system-arm e2fsprogs gzip
-        sudo apt-get install -f
         sudo docker rmi `docker images -q`
         sudo rm -rf \
           /usr/share/dotnet \
