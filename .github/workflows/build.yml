@@ -24,13 +24,13 @@ jobs:
 #      run: |
 #        echo "FREE_GIG_BEFORE=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
 #
-#    - name: Maximize build space
-#      uses: easimon/maximize-build-space@master
-#      with:
-#        root-reserve-mb: 2048
-#        swap-size-mb: 5120
-#        remove-dotnet: 'true'
-#        
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 2048
+        swap-size-mb: 5120
+        remove-dotnet: 'true'
+        
 #      
 #    - name: Determine free space after
 #      run: |
@@ -90,17 +90,17 @@ jobs:
         rm -rf $ANDROID_ROOT/hybris/hybris-boot
         git clone https://github.com/sailfish-on-davinci/hybris-boot.git $ANDROID_ROOT/hybris/hybris-boot
         
-#    - name: Build HAL
-#      run: |
-#        chmod +x build-hal.sh
-#        bash -x build-hal.sh
-#      shell: bash
-#
-#    - name: Build Package
-#      run: |
-#        chmod +x package.sh
-#        bash -x package.sh
-#      shell: bash
+    - name: Build HAL
+      run: |
+        chmod +x build-hal.sh
+        bash -x build-hal.sh
+      shell: bash
+
+    - name: Build Package
+      run: |
+        chmod +x package.sh
+        bash -x package.sh
+      shell: bash
 
 
     - name: Create Release
@@ -109,11 +109,11 @@ jobs:
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         GITHUB_TOKEN: ${{ secrets.Asd_a }}
-#      with:
-#        tag_name: ${{ github.ref }}
-#        release_name: Release ${{ github.ref }}
-#        draft: false
-#        prerelease: false
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
 
     - name: Upload Release Asset
       id: upload-release-asset 
@@ -121,8 +121,8 @@ jobs:
       env:
        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
        GITHUB_TOKEN: ${{ secrets.Asd_a }}
-  #    with:
-  #      upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-  #      asset_path: /home/runner/work/${{env.FLASHABLE_DIR}}.zip
-  #      asset_name: ${{env.FLASHABLE_DIR}}.zip
-  #      asset_content_type: application/zip
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: /home/runner/work/${{env.FLASHABLE_DIR}}.zip
+        asset_name: ${{env.FLASHABLE_DIR}}.zip
+        asset_content_type: application/zip
