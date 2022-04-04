@@ -30,26 +30,26 @@ jobs:
         root-reserve-mb: 512
         swap-size-mb: 1024
         remove-dotnet: 'true'
-        temp-reserve-mb: 2048
+        temp-reserve-mb: 1024
         
-#      
-#    - name: Determine free space after
-#      run: |
-#        echo "FREE_GIG_AFTER=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
+      
+    - name: Determine free space after
+      run: |
+        echo "FREE_GIG_AFTER=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
 
         
     - name: Checkout
       uses: actions/checkout@master
     
-#    - name: asd
-#      env:
-#           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    - name: asd
+      env:
+           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           
-#      run: |
-#        sudo rm -rf /usr/share/dotnet
-#        sudo rm -rf /opt/ghc
-#        sudo rm -rf "/usr/local/share/boost"
-#        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       
     - name: Initialization environment
       env:
