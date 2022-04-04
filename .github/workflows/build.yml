@@ -40,10 +40,28 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
     
-    - name: Initialization environment
+    - name: add repo
       env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           
+      run: |
+         sudo add-apt-repository 'deb http://security.ubuntu.com/ubuntu xenial-security multiverse'
+         sudo add-apt-repository 'deb http://security.ubuntu.com/ubuntu xenial-security universe'
+         sudo add-apt-repository 'deb http://security.ubuntu.com/ubuntu xenial-security main restricte'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe  multiverse'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates multiverse'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial multiverse'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates universe'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial universe'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial main restricted'
+         sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ xenial universe'
+         sudo apt-get update
+      
+    - name: Initialization environment
+      env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true  
+      
       run: |
         sudo apt-get update
         sudo apt-get install -y \
@@ -51,10 +69,10 @@ jobs:
         bison build-essential curl flex g++-multilib \
         gcc-multilib gnupg gperf imagemagick lib32ncurses5-dev \
         lib32readline-dev lib32z1-dev liblz4-tool \
-        libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev \
+        libncurses5-dev libsdl1.2-dev libssl-dev \
         libxml2 libxml2-utils lzop pngcrush rsync schedtool \
         squashfs-tools xsltproc yasm zip zlib1g-dev git \
-        qemu-user-static qemu-system-arm e2fsprogs android-tools-fsutils gzip
+        qemu-user-static qemu-system-arm e2fsprogs gzip
         sudo docker rmi `docker images -q`
         sudo rm -rf \
           /usr/share/dotnet \
