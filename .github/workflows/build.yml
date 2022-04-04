@@ -24,12 +24,13 @@ jobs:
 #      run: |
 #        echo "FREE_GIG_BEFORE=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
 #
-#    - name: Maximize build space
-#      uses: easimon/maximize-build-space@master
-#      with:
-#        root-reserve-mb: 2048
-#        swap-size-mb: 5120
-#        remove-dotnet: 'true'
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 512
+        swap-size-mb: 1024
+        remove-dotnet: 'true'
+        temp-reserve-mb: 2048
         
 #      
 #    - name: Determine free space after
@@ -44,11 +45,11 @@ jobs:
       env:
            ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           
-      run: |
-        sudo rm -rf /usr/share/dotnet
-        sudo rm -rf /opt/ghc
-        sudo rm -rf "/usr/local/share/boost"
-        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+#      run: |
+#        sudo rm -rf /usr/share/dotnet
+#        sudo rm -rf /opt/ghc
+#        sudo rm -rf "/usr/local/share/boost"
+#        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       
     - name: Initialization environment
       env:
