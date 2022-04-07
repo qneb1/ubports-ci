@@ -30,7 +30,7 @@ jobs:
         root-reserve-mb: 512
         swap-size-mb: 1024
         remove-dotnet: 'true'
-        temp-reserve-mb: 1024
+        temp-reserve-mb: 2048
         
       
     - name: Determine free space after
