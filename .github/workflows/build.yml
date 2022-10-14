@@ -43,7 +43,7 @@ jobs:
         libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386 \
         libgl1-mesa-dev g++-multilib mingw-w64-i686-dev tofrodos \
         python3-markdown libxml2-utils xsltproc zlib1g-dev:i386 schedtool \
-        liblz4-tool bc lzop imagemagick libncurses5 rsync \
+        liblz4-tool bc lzop imagemagick libncurses5 rsync repo \
         python-is-python3
         sudo docker rmi `docker images -q`
         sudo rm -rf \
