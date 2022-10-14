@@ -27,6 +27,9 @@ jobs:
         
     - name: Checkout
       uses: actions/checkout@master
+      
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true 
     
     - name: Initialization environment
       run: |
