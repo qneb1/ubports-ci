@@ -8,8 +8,6 @@
 name: Build Ubports
 
 on: 
-  workflow_dispatch:
-  
   push:
     tags:
     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
@@ -17,55 +15,30 @@ on:
 jobs:
 
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-16.04
     steps:
-    
-#    - name: Determine free space before
-#      run: |
-#        echo "FREE_GIG_BEFORE=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
-#
-#     - name: Maximize build space
-#       uses: easimon/maximize-build-space@master
-#      with:
-#        root-reserve-mb: 512
-#        swap-size-mb: 1024
-#        remove-dotnet: 'true'
-#        temp-reserve-mb: 2048
-        
-      
-    - name: Determine free space after
-      run: |
-        echo "FREE_GIG_AFTER=$(df --output=avail --sync -BG "${{ github.workspace }}" | tail -1 | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
-
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 512
+        swap-size-mb: 1024
+        remove-dotnet: 'true'
         
     - name: Checkout
       uses: actions/checkout@master
     
-#    - name: asd
-#      env:
-#           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-#          
-#      run: |
-#        sudo rm -rf /usr/share/dotnet
-#        sudo rm -rf /opt/ghc
-#        sudo rm -rf "/usr/local/share/boost"
-#        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-#      
     - name: Initialization environment
-      env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true  
-      
       run: |
         sudo apt-get update
         sudo apt-get install -y \
         openjdk-8-jdk android-tools-adb bc \
         bison build-essential curl flex g++-multilib \
         gcc-multilib gnupg gperf imagemagick lib32ncurses5-dev \
-        lib32readline-dev lib32z1-dev liblz4-tool \
-        libncurses5-dev libsdl1.2-dev libssl-dev \
+        lib32readline-dev lib32z1-dev libesd0-dev liblz4-tool \
+        libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev \
         libxml2 libxml2-utils lzop pngcrush rsync schedtool \
         squashfs-tools xsltproc yasm zip zlib1g-dev git \
-        qemu-user-static qemu-system-arm e2fsprogs gzip
+        qemu-user-static qemu-system-arm e2fsprogs android-tools-fsutils gzip
         sudo docker rmi `docker images -q`
         sudo rm -rf \
           /usr/share/dotnet \
@@ -100,7 +73,6 @@ jobs:
         git clone https://github.com/ubports-on-davinci/android_kernel_xiaomi_sm6150_fork.git $ANDROID_ROOT/kernel/xiaomi/davinci --depth=1
         rm -rf $ANDROID_ROOT/hybris/hybris-boot
         git clone https://github.com/sailfish-on-davinci/hybris-boot.git $ANDROID_ROOT/hybris/hybris-boot
-        
     - name: Build HAL
       run: |
         chmod +x build-hal.sh
@@ -118,8 +90,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        GITHUB_TOKEN: ${{ secrets.Asd_a }}
+        GITHUB_TOKEN: ${{ secrets.MyUbtSecret }}
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
@@ -130,10 +101,9 @@ jobs:
       id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
-       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-       GITHUB_TOKEN: ${{ secrets.Asd_a }}
+        GITHUB_TOKEN: ${{ secrets.MyUbtSecret }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_path: /home/runner/work/${{env.FLASHABLE_DIR}}.zip
         asset_name: ${{env.FLASHABLE_DIR}}.zip
-        asset_content_type: application/zip
+        asset_content_type: application/zip        
